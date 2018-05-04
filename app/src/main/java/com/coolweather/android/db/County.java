@@ -6,10 +6,10 @@ import org.litepal.crud.DataSupport;
  * Created by lenovo on 2018/4/30.
  */
 
-public class Country extends DataSupport {
+public class County extends DataSupport {
     private int id;
 
-    private String countryName;
+    private String countyName;
 
     private String weatherId;
 
@@ -19,8 +19,8 @@ public class Country extends DataSupport {
         this.id = id;
     }
 
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
+    public void setCountyName(String countyName) {
+        this.countyName = countyName;
     }
 
     public void setWeatherId(String weatherId) {
@@ -36,8 +36,8 @@ public class Country extends DataSupport {
         return id;
     }
 
-    public String getCountryName() {
-        return countryName;
+    public String getCountyName() {
+        return countyName;
     }
 
     public String getWeatherId() {
