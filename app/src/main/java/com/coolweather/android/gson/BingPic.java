@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public class BingPic {
-    @SerializedName("image")
+    @SerializedName("images")
     public List<BaseBingPic> images;
 
     public class BaseBingPic{

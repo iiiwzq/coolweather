@@ -1,5 +1,6 @@
 package com.coolweather.android;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.coolweather.android.gson.Forecast;
 import com.coolweather.android.gson.Weather;
+import com.coolweather.android.service.AutoUpdateService;
 import com.coolweather.android.util.HttpUtil;
 import com.coolweather.android.util.Utility;
 import com.google.gson.Gson;
@@ -208,13 +210,15 @@ public class WeatherActivity extends AppCompatActivity {
         carWashText.setText(carWash);
         sportText.setText(sport);
         weatherLayout.setVisibility(View.VISIBLE);
+        Intent intent = new Intent(this, AutoUpdateService.class);
+        startService(intent);
     }
 
     /**
      * 加载必应每日一图
      */
     private void loadBingPic(){
-        String url = "https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1";
+        String url = "http://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1";
         HttpUtil.sendOkHttpRequest(url, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -226,9 +230,11 @@ public class WeatherActivity extends AppCompatActivity {
 
                 String content = response.body().string();
                 BingPic bingPic = new Gson().fromJson(content,BingPic.class);
+                Log.d("BINGPICTURE",content);
                 final String bingPicUrl;
                 if(bingPic.images!=null && bingPic.images.size()>0) {
-                    bingPicUrl = "https://cn.bing.com"+bingPic.images.get(0).bingBasePicUrl;
+                    bingPicUrl = "http://cn.bing.com"+bingPic.images.get(0).bingBasePicUrl;
+                    Log.d("BINGPICTURE",bingPicUrl);
                 } else{
                     bingPicUrl="https://cn.bing.com//az/hprichbg/rb/Kolonihavehus_ZH-CN6388656996_1920x1080.jpg";
                 }
